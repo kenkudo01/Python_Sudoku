@@ -2,6 +2,8 @@
 
 This project is a Python-based Sudoku solver that includes a GUI for user interaction and supports multiple solving algorithms.
 
+![](pics\)
+
 ## Components
 - `Board` Class: Manages the Sudoku board.
 - `Algorithm 1`: Basic backtracking algorithm for solving Sudoku.
