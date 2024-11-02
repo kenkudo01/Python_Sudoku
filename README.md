@@ -30,6 +30,50 @@ The `is_cell_valid` method checks the validity of a cell based on three conditio
 ### `is_board_filled` Method
 The `is_board_filled` method checks whether all cells in the board are filled with a valid number.
 
+```python
+class Board:
+    def __init__(self):
+        self.board = [[None for _ in range(9)] for _ in range(9)]
+
+    def set_value(self, row, col, value):
+        self.board[row][col] = value
+
+    def get_value(self, row, col):
+        return self.board[row][col]
+
+    def is_cell_valid(self, row, col):
+        num = self.get_value(row, col)
+        if num is None:
+            return False
+
+        for i in range(9):
+            if i != col and self.get_value(row, i) == num:
+                return False
+
+        for i in range(9):
+            if i != row and self.get_value(i, col) == num:
+                return False
+
+        start_row, start_col = 3 * (row // 3), 3 * (col // 3)
+        for i in range(3):
+            for j in range(3):
+                r = start_row + i
+                c = start_col + j
+                if (r != row or c != col) and self.get_value(r, c) == num:
+                    return False
+
+        return True
+
+    def is_board_filled(self):
+        for row in range(9):
+            for col in range(9):
+                if self.get_value(row, col) is None:
+                    return False
+        return True
+
+```
+
+
 ## Algorithm 1
 
 ### Overview
