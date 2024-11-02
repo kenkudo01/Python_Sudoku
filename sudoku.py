@@ -6,34 +6,34 @@ from PyQt5.QtCore import Qt
 
 class Board:
     def __init__(self):
-        # 数独ボードの初期化 (9x9)
+        
         self.board = [[None for _ in range(9)] for _ in range(9)]
 
     def set_value(self, row, col, value):
-        # ボードの特定のセルに値を設定
+ 
         self.board[row][col] = value
 
     def get_value(self, row, col):
-        # ボードの特定のセルから値を取得
+  
         return self.board[row][col]
 
     def is_cell_valid(self, row, col):
-        # 特定セルの行、列、3x3ブロックの重複を確認
+     
         num = self.get_value(row, col)
         if num is None:
             return False
 
-        # 行のチェック
+     
         for i in range(9):
             if i != col and self.get_value(row, i) == num:
                 return False
 
-        # 列のチェック
+       
         for i in range(9):
             if i != row and self.get_value(i, col) == num:
                 return False
 
-        # 3x3のブロックのチェック
+       
         start_row, start_col = 3 * (row // 3), 3 * (col // 3)
         for i in range(3):
             for j in range(3):
@@ -45,7 +45,7 @@ class Board:
         return True
 
     def is_board_filled(self):
-        # 全てのセルに数値が入力されているか確認
+     
         for row in range(9):
             for col in range(9):
                 if self.get_value(row, col) is None:
@@ -80,17 +80,17 @@ class Algorithm2Solver:
 
     def get_candidates(self, row, col):
         used_numbers = set()
-        # 行の数字
+      
         for c in range(9):
             num = self.board.get_value(row, c)
             if num:
                 used_numbers.add(num)
-        # 列の数字
+     
         for r in range(9):
             num = self.board.get_value(r, col)
             if num:
                 used_numbers.add(num)
-        # ブロックの数字
+ 
         start_row, start_col = 3 * (row // 3), 3 * (col // 3)
         for r in range(3):
             for c in range(3):
@@ -102,7 +102,7 @@ class Algorithm2Solver:
     def solve_recursive(self):
         cell = self.find_next_cell()
         if not cell:
-            return True  # 全てのセルが埋まった
+            return True 
         row, col, candidates = cell
         for num in candidates:
             self.board.set_value(row, col, num)
@@ -152,7 +152,7 @@ class Algorithm1Solver:
 class SudokuSolverApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.board = Board()  # Boardクラスのインスタンスを作成
+        self.board = Board() 
         self.initUI()
 
     def initUI(self):
@@ -181,7 +181,7 @@ class SudokuSolverApp(QWidget):
                 self.set_cell_style(cell, row, col)
                 cell.textChanged.connect(lambda text, r=row, c=col: self.update_board(r, c, text))
 
-                # 行と列の位置を調整してスペースを追加
+
                 grid_row = row + (row // 3)
                 grid_col = col + (col // 3)
                 self.grid.addWidget(cell, grid_row, grid_col)
